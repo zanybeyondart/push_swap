@@ -6,7 +6,7 @@
 /*   By: zvakil <zvakil@student.42abudhabi.ae>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by zvakil            #+#    #+#             */
-/*   Updated: 2023/12/02 14:58:00 by zvakil           ###   ########.fr       */
+/*   Updated: 2024/01/16 07:44:21 by zvakil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,4 +94,18 @@ int	mid_number_b(int lowest, int highest, char **av, int ac)
 		counter++;
 	}
 	return (high_prev);
+}
+
+void	setter(t_stacks *stacks, t_info *marks, int ac, char **av)
+{
+	stacks->len_a = ac - 1;
+	stacks->len_b = 0;
+	stacks->a = (int *)malloc(sizeof(int) * stacks->len_a);
+	stacks->b = NULL;
+	marks->next_b = 0;
+	fill(stacks, av);
+	marks->b_b_min = smallest_number(av);
+	marks->a_b_max = largest_number(av);
+	marks->b_t_mid2 = mid_number_b(marks->b_b_min, marks->a_b_max, av, ac);
+	marks->a_t_mid = mid_number_a(marks->b_t_mid2, marks->a_b_max, av);
 }

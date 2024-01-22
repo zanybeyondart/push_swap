@@ -6,55 +6,84 @@
 /*   By: zvakil <zvakil@student.42abudhabi.ae>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 06:49:04 by zvakil            #+#    #+#             */
-/*   Updated: 2023/12/09 02:38:36 by zvakil           ###   ########.fr       */
+/*   Updated: 2024/01/21 21:13:10 by zvakil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	pre_push_b(t_stacks *stacks, int lim)
+int	no_b_in_a(t_stacks *stacks, t_info *marks)
 {
-	int	temp;
 	int	i;
+
+	i = 0;
+	while (i < stacks->len_a)
+	{
+		if (stacks->a[i] >= marks->b_b_min && stacks->a[i] <= marks->b_t_mid2)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+void	pre_push_b(t_stacks *stacks, int lim, t_info *marks)
+{
+	int					temp;
+	int					i;
 
 	if (stacks->len_b <= 1)
 		return ;
+	set_high_low(stacks);
 	while (1)
 	{
-		align(stacks);
+		if (lim < stacks->b_low || lim > stacks->b_high)
+		{
+			lowest_on_bot(stacks);
+			return ;
+		}
 		if (lim > stacks->b[0] && lim < stacks->b[stacks->len_b - 1])
 			return ;
-		i = 0;
+		rotate_b(stacks);
+		print_stacks(stacks);
 	}
+}
+
+int cool(t_stacks *stacks)
+{
+	int i = 0;
+	while (i < stacks->len_a - 1)
+	{
+		if (stacks->a[i] > stacks->a[i + 1])
+			return (0);
+		else
+			i++;
+	}
+	return (1);
 }
 
 int	main(int ac, char **av)
 {
-	int			i;
-	t_info		marks;
+	t_info		*marks;
 	t_stacks	*stacks;
 
 	stacks = malloc(sizeof(t_stacks));
-	stacks->len_a = ac - 1;
-	stacks->len_b = 0;
-	stacks->a = (int *)malloc(sizeof(int) * stacks->len_a);
-	stacks->b = NULL;
-	fill(stacks, av);
-	marks.b_b_min = smallest_number(av);
-	marks.a_b_max = largest_number(av);
-	marks.b_t_mid2 = mid_number_b(marks.b_b_min, marks.a_b_max, av, ac);
-	marks.a_t_mid = mid_number_a(marks.b_t_mid2, marks.a_b_max, av);
-	while (aligned(stacks->a, ac))
-	{
-		print_stacks(stacks);
-		if (stacks->a[0] >= marks.b_b_min && stacks->a[0] <= marks.b_t_mid2)
-		{
-			pre_push_b(stacks, stacks->a[0]);
-			push_b(stacks);
-		}
-	}
+	marks = malloc(sizeof(t_info));
+	stacks->moves = 0;
+	setter(stacks, marks, ac, av);
+	phase_1(stacks, ac, marks);
+	// lowest_on_bot(stacks);
+	// phase_2(stacks, ac, marks);
+	// while (stacks->len_b != 0)
+	// 	push_a(stacks);
+	print_stacks(stacks);
+	if (cool(stacks))
+		printf("\nGG\n");
+	else
+		printf("\nNAH\n");
+	printf("\n\n %d || %d\n\n", stacks->len_a, stacks->moves);
 	free(stacks->a);
 	free(stacks->b);
 	free(stacks);
+
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: zvakil <zvakil@student.42abudhabi.ae>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 16:47:47 by zvakil            #+#    #+#             */
-/*   Updated: 2023/12/08 21:42:06 by zvakil           ###   ########.fr       */
+/*   Updated: 2024/01/20 14:38:24 by zvakil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	push_b(t_stacks *stacks)
 	j = 1;
 	temp_a = (int *)malloc(sizeof(int) * (stacks->len_a - 1));
 	temp_b = (int *)malloc(sizeof(int) * (stacks->len_b + 1));
-	temp_b[0] = 1;
+	temp_b[0] = stacks->a[0];
 	while (i < stacks->len_b)
 		temp_b[j++] = stacks->b[i++];
 	i = 0;
@@ -36,4 +36,49 @@ void	push_b(t_stacks *stacks)
 	free(stacks->b);
 	stacks->a = temp_a;
 	stacks->b = temp_b;
+	stacks->moves++;
+}
+
+void	swap_b(t_stacks *stacks)
+{
+	int	temp;
+
+	temp = stacks->b[0];
+	stacks->b[0] = stacks->b[1];
+	stacks->b[1] = temp;
+		stacks->moves++;
+
+}
+
+void	rotate_b(t_stacks *stacks)
+{
+	int	temp;
+	int	i;
+
+	i = 0;
+	temp = stacks->b[0];
+	while (i < stacks->len_b - 1)
+	{
+		stacks->b[i] = stacks->b[i + 1];
+		i++;
+	}
+	stacks->b[stacks->len_b - 1] = temp;
+		stacks->moves++;
+
+}
+
+void	rotate_r_b(t_stacks *stacks)
+{
+	int	temp;
+	int	i;
+
+	i = stacks->len_b - 1;
+	temp = stacks->b[stacks->len_b - 1];
+	while (i >= 1)
+	{
+		stacks->b[i] = stacks->b[i - 1];
+		i--;
+	}
+	stacks->b[0] = temp;
+		stacks->moves++;
 }
