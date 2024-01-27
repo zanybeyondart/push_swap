@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvakil <zvakil@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zvakil <zvakil@student.42abudhabi.ae>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 06:49:04 by zvakil            #+#    #+#             */
-/*   Updated: 2024/01/22 22:51:51 by zvakil           ###   ########.fr       */
+/*   Updated: 2024/01/23 08:59:01 by zvakil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,18 +71,18 @@ int	main(int ac, char **av)
 	stacks->moves = 0;
 	setter(stacks, marks, ac, av);
 	phase_1(stacks, ac, marks);
-	lowest_on_bot(stacks);
-	phase_2(stacks, ac, marks);
-	while (stacks->len_b != 0)
-		push_a(stacks);
+	// lowest_on_bot(stacks);
+	// phase_2(stacks, ac, marks);
+	// while (stacks->len_b != 0)
+	// 	push_a(stacks);
 	print_stacks(stacks);
-	if (cool(stacks))
-		printf("\nGG\n");
-	else
-	{
-		print_stacks(stacks);
-		printf("\nNAH\n");
-	}
+	// if (cool(stacks))
+	// 	printf("\nGG\n");
+	// else
+	// {
+	// 	print_stacks(stacks);
+	// 	printf("\nNAH\n");
+	// }
 	printf("\n\n %d || %d\n\n", stacks->len_a, stacks->moves);
 	free(stacks->a);
 	free(stacks->b);

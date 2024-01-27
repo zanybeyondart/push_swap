@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilities_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvakil <zvakil@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zvakil <zvakil@student.42abudhabi.ae>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by zvakil            #+#    #+#             */
-/*   Updated: 2024/01/22 22:55:54 by zvakil           ###   ########.fr       */
+/*   Updated: 2024/01/23 09:02:53 by zvakil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,12 @@ int	phase_1(t_stacks *stacks, int ac, t_info *marks)
 		{
 			if (stacks->len_b > 2 && !(stacks->a[0] < stacks->b[0]
 				&& stacks->a[0] > stacks->b[1]) && !(stacks->a[0] < stacks->b[0]
-				&& stacks->a[0] < stacks->b[stacks->len_b - 1])
+				&& stacks->a[0] < stacks->b[stacks->len_b - 1]) && (stacks->a[0] > stacks->b[0] && stacks->a[0] > stacks->b[stacks->len_b - 1])
 				&& (stacks->a[0] != marks->b_t_mid2 && stacks->a[0] != marks->b_b_min)
 				&& stacks->a[0] < stacks->b[0] && stacks->a[0] > stacks->b[stacks->len_b - 1])
 				while (1)
 				{
-				// printf("Z %d\n %d\n %d\n", stacks->a[0], stacks->b[0], stacks->b[1]);
+				printf("Z %d\n %d\n %d\n", stacks->a[0], stacks->b[0], stacks->b[1]);
 				rotate_r_b(stacks);
 				if (stacks->a[0] > stacks->b[0] && stacks->a[0] < stacks->b[stacks->len_b - 1])
 				// if (1)

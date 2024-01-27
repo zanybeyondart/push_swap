@@ -6,11 +6,25 @@
 /*   By: zvakil <zvakil@student.42abudhabi.ae>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 07:28:46 by zvakil            #+#    #+#             */
-/*   Updated: 2024/01/21 04:47:20 by zvakil           ###   ########.fr       */
+/*   Updated: 2024/01/27 05:51:04 by zvakil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+int	should_be(int number, int position, t_stacks *stacks)
+{
+	int	*temp;
+
+	temp = malloc(stacks->len_b);
+	
+	if ()
+	{
+		return (1);
+	}
+	else
+		return (0)
+}
 
 int	next_b(t_stacks *stacks, t_info *marks)
 {
