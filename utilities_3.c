@@ -3,27 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   utilities_3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvakil <zvakil@student.42abudhabi.ae>      +#+  +:+       +#+        */
+/*   By: zvakil <zvakil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 07:28:46 by zvakil            #+#    #+#             */
-/*   Updated: 2024/01/27 05:51:04 by zvakil           ###   ########.fr       */
+/*   Updated: 2024/01/27 23:14:37 by zvakil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	should_be(int number, int position, t_stacks *stacks)
+int	should_be(t_stacks *stacks)
 {
-	int	*temp;
-
-	temp = malloc(stacks->len_b);
-	
-	if ()
-	{
-		return (1);
-	}
-	else
-		return (0)
+	// if ()
+	if (stacks->len_b < 3)
+		return (0);
+	set_high_low(stacks);
+	// printf("%d	%d	%d %d %d\n", stacks->a[0], stacks->b[0], stacks->b[stacks->len_b - 1], stacks->b_low, stacks->b_high);
+	if (stacks->a[0] > stacks->b[0] && stacks->a[0] < stacks->b[stacks->len_b - 1])
+		return (0);
+	if (stacks->a[0] < stacks->b[0] && stacks->a[0] > stacks->b[1])
+		return (0);
+	if (stacks->a[0] < stacks->b[0] 
+		&& stacks->a[0] < stacks->b[stacks->len_b - 1]
+		&& stacks->a[0] < stacks->b_low)
+		{
+		lowest_on_bot(stacks);
+		return (0);
+		}
+	if (stacks->a[0] > stacks->b[0]
+		&& stacks->a[0] > stacks->b[stacks->len_b - 1]
+		&& stacks->a[0] > stacks->b_high)
+		{
+		lowest_on_bot(stacks);
+		return (0);
+		}
+	// if ((stacks->b[0] == stacks->b_high
+	// 	&& stacks->b[stacks->len_b - 1] == stacks->b_low) 
+	// 	|| (stacks->b[0] == stacks->b_low
+	// 	&& stacks->b[stacks->len_b - 1] == stacks->b_high))
+	// 	{
+	// 		// printf("GOES\n");
+	// 	return (1);
+	// 	}
+	return (1);
 }
 
 int	next_b(t_stacks *stacks, t_info *marks)

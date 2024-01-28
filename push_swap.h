@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvakil <zvakil@student.42abudhabi.ae>      +#+  +:+       +#+        */
+/*   By: zvakil <zvakil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 06:49:36 by zvakil            #+#    #+#             */
-/*   Updated: 2024/01/21 03:31:15 by zvakil           ###   ########.fr       */
+/*   Updated: 2024/01/27 18:03:29 by zvakil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
+# include <strings.h>
 
 typedef struct s_infos{
 	int	a_t_mid;
@@ -62,6 +63,7 @@ int			aligned(t_stacks *stacks, int ac);
 int			phase_1(t_stacks *stacks, int ac, t_info *marks);
 int			phase_2(t_stacks *stacks, int ac, t_info *marks);
 int			no_b_in_a(t_stacks *stacks, t_info *marks);
+int			should_be(t_stacks *stacks);
 
 
 #endif
