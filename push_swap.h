@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvakil <zvakil@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zvakil <zvakil@student.42abudhabi.ae>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 06:49:36 by zvakil            #+#    #+#             */
-/*   Updated: 2024/01/27 18:03:29 by zvakil           ###   ########.fr       */
+/*   Updated: 2024/01/28 21:08:44 by zvakil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int			phase_1(t_stacks *stacks, int ac, t_info *marks);
 int			phase_2(t_stacks *stacks, int ac, t_info *marks);
 int			no_b_in_a(t_stacks *stacks, t_info *marks);
 int			should_be(t_stacks *stacks);
-
+int			rotate_efficient(t_stacks *stacks);
+void		ss(t_stacks *stacks);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilities_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvakil <zvakil@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zvakil <zvakil@student.42abudhabi.ae>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by zvakil            #+#    #+#             */
-/*   Updated: 2024/01/27 23:28:04 by zvakil           ###   ########.fr       */
+/*   Updated: 2024/01/28 21:10:27 by zvakil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,23 +79,41 @@ int	phase_1(t_stacks *stacks, int ac, t_info *marks)
 		{
 			print_stacks(stacks);
 			if (should_be(stacks))
-				while (1)
+			{
+				if (rotate_efficient(stacks) <= stacks->len_b / 2)
 				{
-				rotate_r_b(stacks);
-				if (stacks->a[0] > stacks->b[0] && stacks->a[0] < stacks->b[stacks->len_b - 1])
-				break;
+					while (1)
+					{
+						rotate_b(stacks);
+						if (stacks->a[0] > stacks->b[0]
+							&& stacks->a[0] < stacks->b[stacks->len_b - 1])
+								break;
+					}
 				}
+				else
+				{
+					while (1)
+					{
+						rotate_r_b(stacks);
+						if (stacks->a[0] > stacks->b[0]
+							&& stacks->a[0] < stacks->b[stacks->len_b - 1])
+								break;
+					}
+				}
+			}
 			push_b(stacks);
 			print_stacks(stacks);
-			if (stacks->len_b > 1 && stacks->b[0] < stacks->b[1]
+			if (stacks->len_b > 2 && stacks->b[0] < stacks->b[1]
 				&& !secondhalf(stacks, marks, 0)
-				&& stacks->b[0] < stacks->b[stacks->len_b - 1])
+				&& stacks->b[0] < stacks->b[stacks->len_b - 1]
+				&& stacks->b[0] < stacks->b[2])
 				{
 				rr(stacks, marks);
 				print_stacks(stacks);
 				}
 			else if ((stacks->len_b > 2 && stacks->b[0] < stacks->b[1]
-				&& stacks->b[0] < stacks->b[stacks->len_b - 1]))
+				&& stacks->b[0] < stacks->b[stacks->len_b - 1])
+				&& stacks->b[0] < stacks->b[2])
 				{
 				rotate_b(stacks);
 				print_stacks(stacks);
@@ -103,6 +121,9 @@ int	phase_1(t_stacks *stacks, int ac, t_info *marks)
 			if ((stacks->len_b > 1 && stacks->b[0] < stacks->b[1])
 				|| (stacks->len_b == 2 && stacks->b[0] < stacks->b[1]))
 				{
+				if (!secondhalf(stacks, marks, 0) && stacks->a[0] > stacks->a[1])
+					ss(stacks);
+				else
 					swap_b(stacks);
 				print_stacks(stacks);
 				}

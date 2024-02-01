@@ -3,14 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   utilities_3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvakil <zvakil@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zvakil <zvakil@student.42abudhabi.ae>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 07:28:46 by zvakil            #+#    #+#             */
-/*   Updated: 2024/01/27 23:14:37 by zvakil           ###   ########.fr       */
+/*   Updated: 2024/01/28 21:12:55 by zvakil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+int	rotate_efficient(t_stacks *stacks)
+{
+	int	i;
+	int	pos;
+
+	pos = 0;
+	i = 0;
+
+	while(i < stacks->len_b)
+	{
+		if (stacks->len_b > 2 && stacks->a[0] < stacks->b[i]
+			&& stacks->a[0] > stacks->b[i + 1])
+				return(i);
+		i++;
+	}
+	return (0);
+}
 
 int	should_be(t_stacks *stacks)
 {
@@ -37,14 +55,6 @@ int	should_be(t_stacks *stacks)
 		lowest_on_bot(stacks);
 		return (0);
 		}
-	// if ((stacks->b[0] == stacks->b_high
-	// 	&& stacks->b[stacks->len_b - 1] == stacks->b_low) 
-	// 	|| (stacks->b[0] == stacks->b_low
-	// 	&& stacks->b[stacks->len_b - 1] == stacks->b_high))
-	// 	{
-	// 		// printf("GOES\n");
-	// 	return (1);
-	// 	}
 	return (1);
 }
 

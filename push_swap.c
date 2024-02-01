@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvakil <zvakil@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zvakil <zvakil@student.42abudhabi.ae>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 06:49:04 by zvakil            #+#    #+#             */
-/*   Updated: 2024/01/27 21:19:50 by zvakil           ###   ########.fr       */
+/*   Updated: 2024/01/28 15:01:23 by zvakil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	main(int ac, char **av)
 		printf("\nNAH\n");
 	}
 	}
-	// printf("\n\n %d || %d\n\n", stacks->len_a, stacks->moves);
+	printf("\n\n %d || %d\n\n", stacks->len_a, stacks->moves);
 	free(stacks->a);
 	free(stacks->b);
 	free(stacks);

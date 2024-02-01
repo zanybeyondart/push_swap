@@ -6,7 +6,7 @@
 /*   By: zvakil <zvakil@student.42abudhabi.ae>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 16:47:47 by zvakil            #+#    #+#             */
-/*   Updated: 2024/01/20 14:38:24 by zvakil           ###   ########.fr       */
+/*   Updated: 2024/01/28 21:08:11 by zvakil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,18 @@ void	rotate_r_b(t_stacks *stacks)
 	}
 	stacks->b[0] = temp;
 		stacks->moves++;
+}
+
+void	ss(t_stacks *stacks)
+{
+	int	temp_b;
+	int	temp;
+
+	temp = stacks->a[0];
+	stacks->a[0] = stacks->a[1];
+	stacks->a[1] = temp;
+	temp_b = stacks->b[0];
+	stacks->b[0] = stacks->b[1];
+	stacks->b[1] = temp_b;
+	stacks->moves++;
 }
