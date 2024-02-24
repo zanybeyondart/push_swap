@@ -6,7 +6,7 @@
 /*   By: zvakil <zvakil@student.42abudhabi.ae>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 09:45:02 by zvakil            #+#    #+#             */
-/*   Updated: 2024/01/21 03:31:24 by zvakil           ###   ########.fr       */
+/*   Updated: 2024/02/21 08:02:29 by zvakil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	rotate_a(t_stacks *stacks)
 	}
 	stacks->a[stacks->len_a - 1] = temp;
 	stacks->moves++;
+	printf("\nROTATE A\n");
+	print_stacks(stacks);
 }
 
 void	swap_a(t_stacks *stacks)
@@ -36,6 +38,8 @@ void	swap_a(t_stacks *stacks)
 	stacks->a[0] = stacks->a[1];
 	stacks->a[1] = temp;
 	stacks->moves++;
+	printf("\nSWAP A\n");
+	print_stacks(stacks);
 }
 
 void	rotate_r_a(t_stacks *stacks)
@@ -52,6 +56,8 @@ void	rotate_r_a(t_stacks *stacks)
 	}
 	stacks->a[0] = temp;
 		stacks->moves++;
+	printf("\nROTATE REVERSE A\n");
+	print_stacks(stacks);
 }
 
 void	push_a(t_stacks *stacks)
@@ -79,4 +85,6 @@ void	push_a(t_stacks *stacks)
 	stacks->a = temp_a;
 	stacks->b = temp_b;
 	stacks->moves++;
+	printf("\nPUSH TO A\n");
+	print_stacks(stacks);
 }

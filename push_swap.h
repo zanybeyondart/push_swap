@@ -6,7 +6,7 @@
 /*   By: zvakil <zvakil@student.42abudhabi.ae>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 06:49:36 by zvakil            #+#    #+#             */
-/*   Updated: 2024/01/28 21:08:44 by zvakil           ###   ########.fr       */
+/*   Updated: 2024/02/17 11:03:33 by zvakil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ typedef struct s_stacks{
 	int	len_b;
 	int	b_high;
 	int	b_low;
+	int	a_high;
+	int	a_low;
 	int	moves;
 }t_stacks;
 
@@ -42,6 +44,7 @@ void		push_b(t_stacks *stacks);
 void		swap_b(t_stacks *stacks);
 void		rotate_b(t_stacks *stacks);
 void		set_high_low(t_stacks *stacks);
+void		set_high_low_a(t_stacks *stacks);
 void		rotate_a(t_stacks *stacks);
 void		swap_a(t_stacks *stacks);
 void		setter(t_stacks *stacks, t_info *marks, int ac, char **av);

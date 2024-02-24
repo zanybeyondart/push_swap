@@ -6,7 +6,7 @@
 /*   By: zvakil <zvakil@student.42abudhabi.ae>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 16:47:47 by zvakil            #+#    #+#             */
-/*   Updated: 2024/01/28 21:08:11 by zvakil           ###   ########.fr       */
+/*   Updated: 2024/02/21 07:59:49 by zvakil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	push_b(t_stacks *stacks)
 	stacks->a = temp_a;
 	stacks->b = temp_b;
 	stacks->moves++;
+	printf("\nPUSH TO B\n");
+	print_stacks(stacks);
 }
 
 void	swap_b(t_stacks *stacks)
@@ -47,6 +49,8 @@ void	swap_b(t_stacks *stacks)
 	stacks->b[0] = stacks->b[1];
 	stacks->b[1] = temp;
 		stacks->moves++;
+	printf("\nSWAP B\n");
+	print_stacks(stacks);
 
 }
 
@@ -64,6 +68,8 @@ void	rotate_b(t_stacks *stacks)
 	}
 	stacks->b[stacks->len_b - 1] = temp;
 		stacks->moves++;
+	printf("\nROTATE B\n");
+	print_stacks(stacks);
 
 }
 
@@ -81,6 +87,9 @@ void	rotate_r_b(t_stacks *stacks)
 	}
 	stacks->b[0] = temp;
 		stacks->moves++;
+	printf("\nREVERSE ROTATE B\n");
+	print_stacks(stacks);
+
 }
 
 void	ss(t_stacks *stacks)
@@ -95,4 +104,6 @@ void	ss(t_stacks *stacks)
 	stacks->b[0] = stacks->b[1];
 	stacks->b[1] = temp_b;
 	stacks->moves++;
+	printf("\nDOUBLE SWAP\n");
+	print_stacks(stacks);
 }

@@ -6,12 +6,13 @@
 /*   By: zvakil <zvakil@student.42abudhabi.ae>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by zvakil            #+#    #+#             */
-/*   Updated: 2024/01/28 21:16:43 by zvakil           ###   ########.fr       */
+/*   Updated: 2024/02/22 08:09:25 by zvakil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+//  Initiate Stack A
 void	fill(t_stacks *stack, char **av)
 {
 	int	i;
@@ -23,6 +24,7 @@ void	fill(t_stacks *stack, char **av)
 		stack->a[j++] = atoi(av[i++]);
 }
 
+// Checks if stack A is aligned
 int	aligned(t_stacks *stacks, int ac)
 {
 	int	i;
@@ -37,9 +39,7 @@ int	aligned(t_stacks *stacks, int ac)
 	}
 	i++;
 	if (i == stacks->len_a - 1 && stacks->a[i] > stacks->a[0])
-	{
 		return (1);
-	}
 	while (i < stacks->len_a - 1)
 	{
 		if (stacks->a[i] < stacks->a[i + 1])
@@ -50,7 +50,6 @@ int	aligned(t_stacks *stacks, int ac)
 			&& stacks->a[i] > stacks->a[0])
 			return (1);
 	}
-	// print_stacks(stacks);
 	return (0);
 }
 
@@ -63,13 +62,18 @@ void	print_stacks(t_stacks *stacks)
 	j = 0;
 	// return ;
 	printf("\nA	B\n");
-	while (i < stacks->len_a)
+	while (1)
 	{
-		printf("%d	", stacks->a[i++]);
+		if (i < stacks->len_a)
+			printf("%d	", stacks->a[i++]);
+		else
+			printf("X	");
 		if (j < stacks->len_b)
 			printf("%d	\n", stacks->b[j++]);
 		else
 			printf("X\n");
+		if (i >= stacks->len_a && j >= stacks->len_b)
+			break ;
 	}
 }
 
@@ -114,4 +118,21 @@ void	lowest_on_bot(t_stacks *stacks)
 	else
 		while (stacks->b[0] != highest)
 			rotate_r_b(stacks);
+}
+
+void	set_high_low_a(t_stacks *stacks)
+{
+	int	i;
+
+	i = 0;
+	stacks->a_high = stacks->a[i];
+	stacks->a_low = stacks->a[i];
+	while (i < stacks->len_a)
+	{
+		if (stacks->a[i] > stacks->a_high)
+			stacks->a_high = stacks->a[i];
+		if (stacks->a[i] < stacks->a_low)
+			stacks->a_low = stacks->a[i];
+		i++;
+	}
 }

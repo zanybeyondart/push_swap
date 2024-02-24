@@ -6,7 +6,7 @@
 /*   By: zvakil <zvakil@student.42abudhabi.ae>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 06:49:04 by zvakil            #+#    #+#             */
-/*   Updated: 2024/01/28 15:01:23 by zvakil           ###   ########.fr       */
+/*   Updated: 2024/02/21 08:21:08 by zvakil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	pre_push_b(t_stacks *stacks, int lim, t_info *marks)
 		if (lim > stacks->b[0] && lim < stacks->b[stacks->len_b - 1])
 			return ;
 		rotate_b(stacks);
-		print_stacks(stacks);
 	}
 }
 
@@ -70,24 +69,25 @@ int	main(int ac, char **av)
 	marks = malloc(sizeof(t_info));
 	stacks->moves = 0;
 	setter(stacks, marks, ac, av);
+	print_stacks(stacks);
 	phase_1(stacks, ac, marks);
 	lowest_on_bot(stacks);
+	printf("\n\n\n PHASE 2\n\n\n");
 	if (strcmp(av[0] + 2, "99") != 0)
 	{
 	phase_2(stacks, ac, marks);
 	while (stacks->len_b != 0)
 		push_a(stacks);
 	}
-	print_stacks(stacks);
-	if (strcmp(av[0] + 2, "99") != 0)
-	{
 	if (cool(stacks))
+	{
+		print_stacks(stacks);
 		printf("\nGG\n");
+	}
 	else
 	{
 		print_stacks(stacks);
 		printf("\nNAH\n");
-	}
 	}
 	printf("\n\n %d || %d\n\n", stacks->len_a, stacks->moves);
 	free(stacks->a);
