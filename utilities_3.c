@@ -6,211 +6,129 @@
 /*   By: zvakil <zvakil@student.42abudhabi.ae>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 07:28:46 by zvakil            #+#    #+#             */
-/*   Updated: 2024/02/21 09:55:13 by zvakil           ###   ########.fr       */
+/*   Updated: 2024/04/01 09:32:15 by zvakil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	rotate_efficient(t_stacks *stacks)
+int	*cal_moves(t_stacks *stacks, int i)
 {
-	int	i;
-	int	pos;
+	int	*moves;
 
-	pos = 0;
-	i = 0;
-
-	while (i < stacks->len_b)
-	{
-		if (stacks->len_b > 2
-			&& (stacks->a[0] < stacks->b[i] && stacks->a[0] > stacks->b[i + 1]))
-			return (i);
-		i++;
-	}
-	return (0);
-}
-
-int	p2conds(t_stacks *stacks, t_info *marks, int cond)
-{
-	if (cond == 1)
-	{
-		if ((stacks->b[0] > stacks->a[stacks->len_a - 1]
-				&& stacks->b[0] < stacks->a[0])
-			|| stacks->b[0] == marks->a_b_max
-			|| (stacks->b[0] < stacks->a[0]
-				&& stacks->a[stacks->len_a - 1] == stacks->a_high))
-			return (1);
-	}
-	if (cond == 2)
-	{
-		if (stacks->b[0] > stacks->a[0] && stacks->b[0] < stacks->a[1])
-			return (1);
-	}
-	return (0);
-}
-
-int	rotate_efficient_p2(t_stacks *stacks, t_info *marks)
-{
-	int	i;
-
-	i = 0;
-
-	while (i < stacks->len_a - 1)
-	{
-		if ((stacks->b[0] > stacks->a[i] && stacks->b[0] < stacks->a[i + 1])
-			|| (stacks->a[i] == stacks->a_high && stacks->b[0] < stacks->a[i + 1]))
-		{
-			return (i);
-		}
-		i++;
-	}
-	return (0);
-}
-
-int	should_be(t_stacks *stacks)
-{
-	if (stacks->len_b < 3)
-		return (0);
+	moves = malloc(sizeof(int) * 2);
+	moves[0] = 0;
+	moves[1] = 0;
 	set_high_low(stacks);
-	if (stacks->a[0] > stacks->b[0]
-		&& stacks->a[0] < stacks->b[stacks->len_b - 1])
-		return (0);
-	if (stacks->a[0] < stacks->b[0] && stacks->a[0] > stacks->b[1])
-		return (0);
-	if (stacks->a[0] < stacks->b[0]
-		&& stacks->a[0] < stacks->b[stacks->len_b - 1]
-		&& stacks->a[0] < stacks->b_low)
-	{
-		lowest_on_bot(stacks);
-		return (0);
-	}
-	if (stacks->a[0] > stacks->b[0]
-		&& stacks->a[0] > stacks->b[stacks->len_b - 1]
-		&& stacks->a[0] > stacks->b_high)
-	{
-		lowest_on_bot(stacks);
-		return (0);
-	}
-	return (1);
-}
-
-int	next_b(t_stacks *stacks, t_info *marks)
-{
-	int	i;
-
-	i = 0;
-	while (i < stacks->len_a)
-	{
-		if (secondhalf(stacks, marks, i))
-		{
-			marks->next_b = stacks->a[i];
-			break ;
-		}
-		i++;
-	}
-	return (1);
-}
-
-void	highest_on_bot(t_stacks *stacks)
-{
-	int	highest;
-	int	high_index;
-	int	i;
-
-	i = 0;
-	high_index = 0;
-	highest = stacks->a[0];
-	while (i < stacks->len_a)
-	{
-		if (stacks->a[i] > highest)
-		{
-			highest = stacks->a[i];
-			high_index = i;
-		}
-		i++;
-	}
-	if (high_index < (stacks->len_a / 2))
-		while (stacks->a[stacks->len_a - 1] != highest)
-			rotate_a(stacks);
+	set_moves(stacks, i, moves, 0);
+	if (i <= stacks->len_a / 2)
+		moves[0] = i;
 	else
-		while (stacks->a[stacks->len_a - 1] != highest)
-			rotate_r_a(stacks);
+		moves[0] = i - stacks->len_a;
+	return (moves);
 }
 
-int	phase_2(t_stacks *stacks, int ac, t_info *marks)
+void	set_moves(t_stacks *stacks, int i, int *moves, int j)
 {
-	while (aligned(stacks, ac))
+	int	index_b;
+
+	index_b = 0;
+	while (index_b < stacks->len_b - 1)
 	{
-		if (stacks->a[0] > stacks->a[1])
+		if (stacks->a[i] < stacks->b[index_b]
+			&& stacks->a[i] > stacks->b[index_b + 1])
+			if (index_b + 1 <= stacks->len_b / 2)
+				moves[1] = index_b + 1;
+		else
+				moves[1] = (index_b + 1) - stacks->len_b;
+		else if (stacks->a[i] > stacks->b_high || stacks->a[i] < stacks->b_low)
 		{
-			swap_a(stacks);
+			while (stacks->b[j] != stacks->b_high && j < stacks->len_b)
+			j++;
+			if (j <= stacks->len_b / 2)
+				moves[1] = j ;
+			else
+				moves[1] = j - stacks->len_b;
 		}
-		else if (stacks->a[stacks->len_a - 1] > stacks->a[0]
-			&& stacks->a[stacks->len_a - 1] < stacks->a[1])
+		if (moves[1] != 0)
+			break ;
+		index_b++;
+	}
+}
+
+int	ischeaper(int *current, int *cheapest, int t_cheap, int t_cur)
+{
+	if ((cheapest[0] < 0 && cheapest[1] < 0)
+		|| (cheapest[0] > 0 && cheapest[1] > 0))
+	{
+		if (posit(cheapest[0]) >= posit(cheapest[1]))
+		t_cheap = posit(cheapest[0]);
+		else
+		t_cheap = posit(cheapest[1]);
+	}
+	else
+	t_cheap = posit(cheapest[0]) + posit(cheapest[1]);
+	if ((current[0] < 0 && current[1] < 0)
+		|| (current[0] > 0 && current[1] > 0))
+	{
+		if (posit(current[0]) >= posit(current[1]))
+		t_cur = posit(current[0]);
+		else
+		t_cur = posit(current[1]);
+	}
+	else
+	t_cur = posit(current[0]) + posit(current[1]);
+	if (t_cur < t_cheap)
+		return (1);
+	else
+		return (0);
+}
+
+void	ab_moves(t_stacks *stacks, int *cheapest)
+{
+	while (cheapest[0] > 0 && cheapest[1] > 0)
+	{
+		if (cheapest[0] == 0 || cheapest[1] == 0)
+			break ;
+		rr(stacks);
+		cheapest[0]--;
+		cheapest[1]--;
+	}
+	while (cheapest[0] < 0 && cheapest[1] < 0)
+	{
+		if (cheapest[0] == 0 || cheapest[1] == 0)
+			break ;
+		rrr(stacks);
+		cheapest[0]++;
+		cheapest[1]++;
+	}
+}
+
+void	cheapestmove(t_stacks *stacks, int *cheapest)
+{
+	ab_moves(stacks, cheapest);
+	while (cheapest[0] != 0 || cheapest[1] != 0)
+	{
+		if (cheapest[0] < 0)
 		{
 			rotate_r_a(stacks);
-			swap_a(stacks);
+			cheapest[0]++;
 		}
-		else if (stacks->a[0] > stacks->b[0])
+		else if (cheapest[0] > 0)
 		{
-			push_b(stacks);
-		}
-		else if (stacks->a[0] < stacks->b[0])
-		{
-			push_b(stacks);
-			swap_b(stacks);
-		}
-		else
-		{
+			cheapest[0]--;
 			rotate_a(stacks);
 		}
+		if (cheapest[1] < 0)
+		{
+			rotate_r_b(stacks);
+			cheapest[1]++;
+		}
+		else if (cheapest[1] > 0)
+		{
+			cheapest[1]--;
+			rotate_b(stacks);
+		}
 	}
-	highest_on_bot(stacks);
-	while (stacks->b[0] != marks->b_t_mid2)
-	{
-		set_high_low_a(stacks);
-		if (p2conds(stacks, marks, 1))
-		{
-			push_a(stacks);
-		}
-		else if (p2conds(stacks, marks, 2))
-		{
-			push_a(stacks);
-			swap_a(stacks);
-		}
-		else
-		{
-			// printf("\n\n%d\n\n", rotate_efficient_p2(stacks, marks));
-			if (rotate_efficient_p2(stacks, marks) <= stacks->len_a / 2)
-			{
-				while (1)
-				{
-					// print_stacks(stacks);
-					rotate_a(stacks);
-					// printf("\n%d R\n", stacks->len_a);
-					// print_stacks(stacks);
-					if (p2conds(stacks, marks, 1) || p2conds(stacks, marks, 2))
-					{
-						break ;
-					}
-				}
-			}
-			else
-			{
-				while (1)
-				{
-					// printf("\n%d RR\n", stacks->len_a);
-					rotate_r_a(stacks);
-					// print_stacks(stacks);
-					if (p2conds(stacks, marks, 1) || p2conds(stacks, marks, 2))
-						break ;
-				}
-			}
-		}
-		if (stacks->b[0] == marks->a_t_mid && stacks->b[1] == marks->b_t_mid2)
-			break ;
-	}
-		// print_stacks(stacks);
-		highest_on_bot (stacks);
-	return (0);
+	free(cheapest);
 }

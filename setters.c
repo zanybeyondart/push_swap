@@ -6,7 +6,7 @@
 /*   By: zvakil <zvakil@student.42abudhabi.ae>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by zvakil            #+#    #+#             */
-/*   Updated: 2024/01/16 07:44:21 by zvakil           ###   ########.fr       */
+/*   Updated: 2024/04/01 09:36:25 by zvakil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ int	largest_number(char **av)
 
 	i = 1;
 	j = 2;
-	number = atoi(av[1]);
+	number = ft_atoi(av[1]);
 	while (av[j] != NULL)
 	{
-		if (number < atoi(av[j]))
+		if (number < ft_atoi(av[j]))
 		{
-			number = atoi(av[j]);
+			number = ft_atoi(av[j]);
 			i = j;
 		}
 		j++;
@@ -41,12 +41,12 @@ int	smallest_number(char **av)
 
 	i = 1;
 	j = 2;
-	number = 0;
+	number = ft_atoi(av[1]);
 	while (av[j] != NULL)
 	{
-		if (atoi(av[i]) > atoi(av[j]))
+		if (ft_atoi(av[i]) > ft_atoi(av[j]))
 		{
-			number = atoi(av[j]);
+			number = ft_atoi(av[j]);
 			i = j;
 		}
 		j++;
@@ -63,8 +63,8 @@ int	mid_number_a(int num, int max, char **av)
 	mid_a = max;
 	while (av[i] != NULL)
 	{
-		if (atoi(av[i]) < mid_a && atoi(av[i]) > num)
-			mid_a = atoi(av[i]);
+		if (ft_atoi(av[i]) < mid_a && ft_atoi(av[i]) > num)
+			mid_a = ft_atoi(av[i]);
 		i++;
 	}
 	return (mid_a);
@@ -79,7 +79,6 @@ int	mid_number_b(int lowest, int highest, char **av, int ac)
 	i = 1;
 	high_prev = highest;
 	counter = 0;
-
 	while (counter < ac / 2)
 	{
 		highest = high_prev;
@@ -87,8 +86,8 @@ int	mid_number_b(int lowest, int highest, char **av, int ac)
 		i = 1;
 		while (av[i] != NULL)
 		{
-			if (atoi(av[i]) < highest && atoi(av[i]) > high_prev)
-				high_prev = atoi(av[i]);
+			if (ft_atoi(av[i]) < highest && ft_atoi(av[i]) > high_prev)
+				high_prev = ft_atoi(av[i]);
 			i++;
 		}
 		counter++;
@@ -96,16 +95,13 @@ int	mid_number_b(int lowest, int highest, char **av, int ac)
 	return (high_prev);
 }
 
-void	setter(t_stacks *stacks, t_info *marks, int ac, char **av)
+void	fill(t_stacks *stack, char **av)
 {
-	stacks->len_a = ac - 1;
-	stacks->len_b = 0;
-	stacks->a = (int *)malloc(sizeof(int) * stacks->len_a);
-	stacks->b = NULL;
-	marks->next_b = 0;
-	fill(stacks, av);
-	marks->b_b_min = smallest_number(av);
-	marks->a_b_max = largest_number(av);
-	marks->b_t_mid2 = mid_number_b(marks->b_b_min, marks->a_b_max, av, ac);
-	marks->a_t_mid = mid_number_a(marks->b_t_mid2, marks->a_b_max, av);
+	int	i;
+	int	j;
+
+	i = 1;
+	j = 0;
+	while (j != stack->len_a)
+		stack->a[j++] = ft_atoi(av[i++]);
 }

@@ -6,75 +6,19 @@
 /*   By: zvakil <zvakil@student.42abudhabi.ae>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by zvakil            #+#    #+#             */
-/*   Updated: 2024/02/22 08:09:25 by zvakil           ###   ########.fr       */
+/*   Updated: 2024/04/01 09:03:25 by zvakil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-//  Initiate Stack A
-void	fill(t_stacks *stack, char **av)
-{
-	int	i;
-	int	j;
-
-	i = 1;
-	j = 0;
-	while (j != stack->len_a)
-		stack->a[j++] = atoi(av[i++]);
-}
-
-// Checks if stack A is aligned
-int	aligned(t_stacks *stacks, int ac)
+void	print_move(char *word)
 {
 	int	i;
 
 	i = 0;
-	while (i < stacks->len_a - 1)
-	{
-		if (stacks->a[i] < stacks->a[i + 1])
-			i++;
-		else
-			break ;
-	}
-	i++;
-	if (i == stacks->len_a - 1 && stacks->a[i] > stacks->a[0])
-		return (1);
-	while (i < stacks->len_a - 1)
-	{
-		if (stacks->a[i] < stacks->a[i + 1])
-			i++;
-		else
-			return (1);
-		if (i == stacks->len_a - 1
-			&& stacks->a[i] > stacks->a[0])
-			return (1);
-	}
-	return (0);
-}
-
-void	print_stacks(t_stacks *stacks)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	// return ;
-	printf("\nA	B\n");
-	while (1)
-	{
-		if (i < stacks->len_a)
-			printf("%d	", stacks->a[i++]);
-		else
-			printf("X	");
-		if (j < stacks->len_b)
-			printf("%d	\n", stacks->b[j++]);
-		else
-			printf("X\n");
-		if (i >= stacks->len_a && j >= stacks->len_b)
-			break ;
-	}
+	while (word[i] != '\0')
+		write(1, &word[i++], 1);
 }
 
 void	set_high_low(t_stacks *stacks)
@@ -120,19 +64,37 @@ void	lowest_on_bot(t_stacks *stacks)
 			rotate_r_b(stacks);
 }
 
-void	set_high_low_a(t_stacks *stacks)
+int	ft_isdigit(int a)
 {
-	int	i;
+	if (a >= '0' && a <= '9')
+		return (1);
+	else
+		return (0);
+}
 
-	i = 0;
-	stacks->a_high = stacks->a[i];
-	stacks->a_low = stacks->a[i];
-	while (i < stacks->len_a)
+int	ft_atoi(const char *str)
+{
+	int	a;
+	int	b;
+	int	neg;
+
+	b = 0;
+	a = 0;
+	while ((str[a] >= 9 && str[a] <= 13) || str[a] == ' ')
+		a++;
+	if (str[a] == '+' || str[a] == '-')
 	{
-		if (stacks->a[i] > stacks->a_high)
-			stacks->a_high = stacks->a[i];
-		if (stacks->a[i] < stacks->a_low)
-			stacks->a_low = stacks->a[i];
-		i++;
+		if (str[a] == '-')
+			neg = 1;
+		a++;
 	}
+	while (ft_isdigit(str[a]))
+	{
+		b = b * 10 + (str[a] - 48);
+		a++;
+	}
+	if (neg == 1)
+		return (b * -1);
+	else
+		return (b);
 }

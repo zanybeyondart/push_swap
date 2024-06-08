@@ -6,50 +6,76 @@
 /*   By: zvakil <zvakil@student.42abudhabi.ae>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 06:49:04 by zvakil            #+#    #+#             */
-/*   Updated: 2024/02/21 08:21:08 by zvakil           ###   ########.fr       */
+/*   Updated: 2024/04/01 09:33:19 by zvakil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "push_swap.h" /////////////DONT FORGET ATOI
 
-int	no_b_in_a(t_stacks *stacks, t_info *marks)
+char	*wordassign(const char *s, int len)
+{
+	char	*s2;
+
+	s2 = (char *)malloc(sizeof(char) * (len + 1));
+	if (!s2)
+		return (NULL);
+	ft_strlcpy(s2, s, len + 1);
+	return (s2);
+}
+
+char	**ft_split(const char *s, char c)
+{
+	int		v[2];
+	int		start;
+	char	**result;
+
+	if (!s)
+		return (NULL);
+	result = (char **)malloc(sizeof(char *) * ((countword (s, c)) + 1));
+	if (!result)
+		return (NULL);
+	v[0] = 0;
+	v[1] = 0;
+	while (s[v[0]] != '\0' && v[1] < (countword (s, c)))
+	{
+		if (s[v[0]] == c)
+			v[0]++;
+		else
+		{
+			start = v[0];
+			while (s[v[0]] != c && s[v[0]] != '\0')
+				v[0]++;
+			result[v[1]++] = wordassign ((char *) s + start, v[0] - start);
+		}
+	}
+	result[v[1]] = NULL;
+	return (result);
+}
+
+
+void	setter(t_stacks *stacks, int ac, char **av)
+{
+	char	**nums;
+
+	stacks->len_a = ac - 1;
+	stacks->len_b = 0;
+	stacks->a = (int *)malloc(sizeof(int) * stacks->len_a);
+	stacks->b = NULL;
+	if (ac == 2)
+	{
+		nums = ft_split(av[1], ' ');
+		fill(stacks, nums);
+		free(nums);
+	}
+	else
+		fill(stacks, av);
+}
+
+int	cool(t_stacks *stacks)
 {
 	int	i;
 
 	i = 0;
-	while (i < stacks->len_a)
-	{
-		if (stacks->a[i] >= marks->b_b_min && stacks->a[i] <= marks->b_t_mid2)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-void	pre_push_b(t_stacks *stacks, int lim, t_info *marks)
-{
-	int					temp;
-	int					i;
-
-	if (stacks->len_b <= 1)
-		return ;
-	set_high_low(stacks);
-	while (1)
-	{
-		if (lim < stacks->b_low || lim > stacks->b_high)
-		{
-			lowest_on_bot(stacks);
-			return ;
-		}
-		if (lim > stacks->b[0] && lim < stacks->b[stacks->len_b - 1])
-			return ;
-		rotate_b(stacks);
-	}
-}
-
-int cool(t_stacks *stacks)
-{
-	int i = 0;
 	while (i < stacks->len_a - 1)
 	{
 		if (stacks->a[i] > stacks->a[i + 1])
@@ -62,37 +88,19 @@ int cool(t_stacks *stacks)
 
 int	main(int ac, char **av)
 {
-	t_info		*marks;
 	t_stacks	*stacks;
 
 	stacks = malloc(sizeof(t_stacks));
-	marks = malloc(sizeof(t_info));
 	stacks->moves = 0;
-	setter(stacks, marks, ac, av);
-	print_stacks(stacks);
-	phase_1(stacks, ac, marks);
+	setter(stacks, ac, av);
+	phase_1(stacks, ac);
 	lowest_on_bot(stacks);
-	printf("\n\n\n PHASE 2\n\n\n");
-	if (strcmp(av[0] + 2, "99") != 0)
-	{
-	phase_2(stacks, ac, marks);
 	while (stacks->len_b != 0)
 		push_a(stacks);
-	}
 	if (cool(stacks))
-	{
-		print_stacks(stacks);
-		printf("\nGG\n");
-	}
-	else
-	{
-		print_stacks(stacks);
-		printf("\nNAH\n");
-	}
-	printf("\n\n %d || %d\n\n", stacks->len_a, stacks->moves);
+		printf("\nGG\n%d\n", stacks->moves);
 	free(stacks->a);
 	free(stacks->b);
 	free(stacks);
-
 	return (0);
 }

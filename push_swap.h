@@ -6,7 +6,7 @@
 /*   By: zvakil <zvakil@student.42abudhabi.ae>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 06:49:36 by zvakil            #+#    #+#             */
-/*   Updated: 2024/02/17 11:03:33 by zvakil           ###   ########.fr       */
+/*   Updated: 2024/04/01 09:34:19 by zvakil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,6 @@
 # include <unistd.h>
 # include <strings.h>
 
-typedef struct s_infos{
-	int	a_t_mid;
-	int	a_b_max;
-	int	b_t_mid2;
-	int	b_b_min;
-	int	next_b;
-}t_info;
-
 typedef struct s_stacks{
 	int	*a;
 	int	*b;
@@ -33,41 +25,45 @@ typedef struct s_stacks{
 	int	len_b;
 	int	b_high;
 	int	b_low;
-	int	a_high;
-	int	a_low;
 	int	moves;
 }t_stacks;
 
+// Setters.c
 void		fill(t_stacks *stack, char **av);
-void		print_stacks(t_stacks *stacks);
+int			largest_number(char **av);
+int			smallest_number(char **av);
+int			mid_number_a(int num, int low, char **av);
+int			mid_number_b(int lowest, int highest, char **av, int ac);
+
+// A Moves
+void		rotate_r_a(t_stacks *stacks);
+void		rotate_a(t_stacks *stacks);
+void		swap_a(t_stacks *stacks);
+void		push_a(t_stacks *stacks);
+
+// B Moves
 void		push_b(t_stacks *stacks);
 void		swap_b(t_stacks *stacks);
 void		rotate_b(t_stacks *stacks);
-void		set_high_low(t_stacks *stacks);
-void		set_high_low_a(t_stacks *stacks);
-void		rotate_a(t_stacks *stacks);
-void		swap_a(t_stacks *stacks);
-void		setter(t_stacks *stacks, t_info *marks, int ac, char **av);
-void		setter_2(t_stacks *stacks, t_info *marks, int ac, char **av);
-void		lowest_on_bot(t_stacks *stacks);
 void		rotate_r_b(t_stacks *stacks);
-void		highest_on_bot(t_stacks *stacks);
-void		push_a(t_stacks *stacks);
-void		pre_push_b(t_stacks *stacks, int lim, t_info *marks);
-void		rotate_r_a(t_stacks *stacks);
-int			next_b(t_stacks *stacks, t_info *marks);
-int			largest_number(char **av);
-int			smallest_number(char **av);
-int			secondhalf(t_stacks *stacks, t_info *marks, int number);
-int			mid_number_a(int num, int low, char **av);
-int			mid_number_b(int lowest, int highest, char **av, int ac);
-int			stack_len(int *stack);
-int			aligned(t_stacks *stacks, int ac);
-int			phase_1(t_stacks *stacks, int ac, t_info *marks);
-int			phase_2(t_stacks *stacks, int ac, t_info *marks);
-int			no_b_in_a(t_stacks *stacks, t_info *marks);
-int			should_be(t_stacks *stacks);
-int			rotate_efficient(t_stacks *stacks);
+
+// Both Moves
 void		ss(t_stacks *stacks);
+void		rrr(t_stacks *stacks);
+int			rr(t_stacks *stacks);
+
+// Utilities and Main
+void		set_high_low(t_stacks *stacks);
+void		lowest_on_bot(t_stacks *stacks);
+void		phase_1(t_stacks *stacks, int ac);
+void		print_move(char *word);
+void		set_moves(t_stacks *stacks, int i, int *moves, int j);
+int			posit(int a);
+int			*cal_moves(t_stacks *stacks, int i);
+int			ischeaper(int *current, int *cheapest, int t_cheap, int t_cur);
+void		cheapestmove(t_stacks *stacks, int *cheapest);
+int			ft_atoi(const char *str);
+void		ft_strlcpy(char	*dst, const char *src, size_t size);
+int			countword(const char *s, char c);
 
 #endif
