@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ab_moves.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvakil <zvakil@student.42abudhabi.ae>      +#+  +:+       +#+        */
+/*   By: zvakil <zvakil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 06:32:11 by zvakil            #+#    #+#             */
-/*   Updated: 2024/04/01 07:47:58 by zvakil           ###   ########.fr       */
+/*   Updated: 2024/06/10 02:04:57 by zvakil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	rrr(t_stacks *stacks)
 		i--;
 	}
 	stacks->a[0] = temp;
-		stacks->moves++;
+	stacks->moves++;
 	i_b = stacks->len_b - 1;
 	temp_b = stacks->b[stacks->len_b - 1];
 	while (i_b >= 1)
@@ -51,7 +51,7 @@ void	rrr(t_stacks *stacks)
 		i_b--;
 	}
 	stacks->b[0] = temp_b;
-		stacks->moves++;
+	stacks->moves++;
 	print_move("rrr\n");
 }
 

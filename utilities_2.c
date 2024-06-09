@@ -3,29 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utilities_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvakil <zvakil@student.42abudhabi.ae>      +#+  +:+       +#+        */
+/*   By: zvakil <zvakil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by zvakil            #+#    #+#             */
-/*   Updated: 2024/04/01 09:33:42 by zvakil           ###   ########.fr       */
+/*   Updated: 2024/06/10 02:18:54 by zvakil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-int	aligned_b(t_stacks *stacks)
-{
-	int	i;
-
-	i = 0;
-	while (i < stacks->len_b - 1)
-	{
-		if (stacks->b[i] < stacks->b[i + 1])
-			i++;
-		else
-			return (1);
-	}
-	return (0);
-}
 
 int	posit(int a)
 {
@@ -34,31 +19,42 @@ int	posit(int a)
 	return (a);
 }
 
-void	phase_1(t_stacks *stacks, int ac)
+int	*find_cheapest_move(t_stacks *stacks)
 {
 	int	i;
 	int	*current;
 	int	*cheapest;
 
+	cheapest = NULL;
+	i = 0;
+	while (i < stacks->len_a && stacks->len_b > 1)
+	{
+		current = cal_moves(stacks, i);
+		if (!cheapest || ischeaper(current, cheapest, 0, 0))
+		{
+			if (cheapest)
+				free(cheapest);
+			cheapest = current;
+		}
+		else
+			free(current);
+		i++;
+	}
+	return (cheapest);
+}
+
+void	phase_1(t_stacks *stacks)
+{
+	int	*cheapest;
+
 	while (stacks->len_a != 0)
 	{
-	i = 0;
-	cheapest = NULL;
-	current = NULL;
-		while (i < stacks->len_a && stacks->len_b > 1)
-		{
-			current = cal_moves(stacks, i);
-			if (cheapest == NULL)
-				cheapest = current;
-			else if (ischeaper(current, cheapest, 0, 0))
-			{
-				free(cheapest);
-				cheapest = current;
-			}
-			i++;
-		}
+		cheapest = find_cheapest_move(stacks);
 		if (cheapest)
+		{
 			cheapestmove(stacks, cheapest);
+			free(cheapest);
+		}
 		push_b(stacks);
 	}
 }

@@ -1,13 +1,28 @@
-# SRC = ./push_swap.c ./setters.c
+NAME = push_swap
+CFLAGS = -Wall -Wextra -Werror
+SRC = a_moves.c\
+	ab_moves.c\
+	b_moves.c\
+	push_swap.c\
+	setters.c\
+	utilities.c\
+	utilities_2.c\
+	utilities_3.c\
+	parsing.c\
+	libft.c\
+	mini_sorts.c\
 
-# OBJ = $(SRC:.c=.o)
+OBJS = $(SRC:%.c=%.o)
 
-# all : ${OBJ}
-# 	@ar -rcs lib.a ${OBJ}
-# 	cc push_swap.c lib.a
+all : $(NAME)
 
-all :
-	cc push_swap.c setters.c utilities.c b_moves.c a_moves.c utilities_2.c utilities_3.c ab_moves.c -fsanitize=address
-
+$(NAME) : $(OBJS)
+	@ $(CC) $(CFLAGS) $(OBJS)  -o $(NAME)
+	
 clean :
-	rm -f ./99 ./p1 ./a.out
+	@ $(RM) $(OBJS)
+
+fclean : clean
+	@ $(RM) $(NAME)
+
+re : fclean all

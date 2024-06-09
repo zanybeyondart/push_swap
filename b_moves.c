@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_moves.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvakil <zvakil@student.42abudhabi.ae>      +#+  +:+       +#+        */
+/*   By: zvakil <zvakil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 16:47:47 by zvakil            #+#    #+#             */
-/*   Updated: 2024/04/01 07:36:28 by zvakil           ###   ########.fr       */
+/*   Updated: 2024/06/10 02:05:17 by zvakil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	swap_b(t_stacks *stacks)
 	temp = stacks->b[0];
 	stacks->b[0] = stacks->b[1];
 	stacks->b[1] = temp;
-		stacks->moves++;
+	stacks->moves++;
 	print_move("sb\n");
 }
 
@@ -64,7 +64,7 @@ void	rotate_b(t_stacks *stacks)
 		i++;
 	}
 	stacks->b[stacks->len_b - 1] = temp;
-		stacks->moves++;
+	stacks->moves++;
 	print_move("rb\n");
 }
 
@@ -81,6 +81,6 @@ void	rotate_r_b(t_stacks *stacks)
 		i--;
 	}
 	stacks->b[0] = temp;
-		stacks->moves++;
+	stacks->moves++;
 	print_move("rrb\n");
 }

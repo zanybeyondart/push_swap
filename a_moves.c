@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   a_moves.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvakil <zvakil@student.42abudhabi.ae>      +#+  +:+       +#+        */
+/*   By: zvakil <zvakil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 09:45:02 by zvakil            #+#    #+#             */
-/*   Updated: 2024/04/01 07:35:50 by zvakil           ###   ########.fr       */
+/*   Updated: 2024/06/09 21:36:06 by zvakil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	rotate_r_a(t_stacks *stacks)
 		i--;
 	}
 	stacks->a[0] = temp;
-		stacks->moves++;
+	stacks->moves++;
 	print_move("rra\n");
 }
 

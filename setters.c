@@ -3,35 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   setters.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvakil <zvakil@student.42abudhabi.ae>      +#+  +:+       +#+        */
+/*   By: zvakil <zvakil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by zvakil            #+#    #+#             */
-/*   Updated: 2024/04/01 09:36:25 by zvakil           ###   ########.fr       */
+/*   Updated: 2024/06/10 02:33:05 by zvakil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-int	largest_number(char **av)
-{
-	int	i;
-	int	number;
-	int	j;
-
-	i = 1;
-	j = 2;
-	number = ft_atoi(av[1]);
-	while (av[j] != NULL)
-	{
-		if (number < ft_atoi(av[j]))
-		{
-			number = ft_atoi(av[j]);
-			i = j;
-		}
-		j++;
-	}
-	return (number);
-}
 
 int	smallest_number(char **av)
 {
@@ -54,54 +33,84 @@ int	smallest_number(char **av)
 	return (number);
 }
 
-int	mid_number_a(int num, int max, char **av)
+char	*wordassign(const char *s, int len)
 {
-	int	i;
-	int	mid_a;
+	char	*s2;
 
-	i = 1;
-	mid_a = max;
-	while (av[i] != NULL)
-	{
-		if (ft_atoi(av[i]) < mid_a && ft_atoi(av[i]) > num)
-			mid_a = ft_atoi(av[i]);
-		i++;
-	}
-	return (mid_a);
+	s2 = (char *)malloc(sizeof(char) * (len + 1));
+	if (!s2)
+		return (NULL);
+	ft_strlcpy(s2, s, len + 1);
+	return (s2);
 }
 
-int	mid_number_b(int lowest, int highest, char **av, int ac)
+int	is_valid_number(const char *str)
 {
 	int	i;
-	int	high_prev;
-	int	counter;
 
-	i = 1;
-	high_prev = highest;
-	counter = 0;
-	while (counter < ac / 2)
+	i = 0;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
+		i++;
+	if (str[i] == '+' || str[i] == '-')
+		i++;
+	if (!ft_isdigit(str[i]))
+		return (0);
+	while (ft_isdigit(str[i]))
+		i++;
+	if (str[i] != '\0')
+		return (0);
+	return (1);
+}
+
+int	*ft_atoi_check(const char *str)
+{
+	int			i;
+	long long	num;
+	int			neg;
+	int			*result;
+
+	result = malloc(sizeof(int) * 2);
+	neg = 1;
+	i = 0;
+	num = 0;
+	result[0] = 0;
+	result[1] = 0;
+	if (!is_valid_number(str))
+		return (result[1] = -1, result);
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
+		i++;
+	if (str[i] == '+' || str[i] == '-')
+		if (str[i++] == '-')
+			neg = -1;
+	while (ft_isdigit(str[i]))
 	{
-		highest = high_prev;
-		high_prev = lowest;
-		i = 1;
-		while (av[i] != NULL)
-		{
-			if (ft_atoi(av[i]) < highest && ft_atoi(av[i]) > high_prev)
-				high_prev = ft_atoi(av[i]);
-			i++;
-		}
-		counter++;
+		num = num * 10 + (str[i++] - '0');
+		if (num > INT_MAX || (neg == -1 && -1 * num < INT_MIN))
+			return (result[1] = -1, result);
 	}
-	return (high_prev);
+	return (result[0] = num * neg, result);
 }
 
 void	fill(t_stacks *stack, char **av)
 {
-	int	i;
 	int	j;
+	int	*num;
 
-	i = 1;
 	j = 0;
-	while (j != stack->len_a)
-		stack->a[j++] = ft_atoi(av[i++]);
+	while (av[j])
+	{
+		num = ft_atoi_check(av[j]);
+		if (num[1] == -1)
+		{
+			free(num);
+			free_args(av);
+			free(stack->a);
+			free(stack->b);
+			free(stack);
+			print_move("Error\n");
+			exit(1);
+		}
+		stack->a[j] = num[0];
+		j++;
+	}
 }

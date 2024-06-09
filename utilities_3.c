@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilities_3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvakil <zvakil@student.42abudhabi.ae>      +#+  +:+       +#+        */
+/*   By: zvakil <zvakil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 07:28:46 by zvakil            #+#    #+#             */
-/*   Updated: 2024/04/01 09:32:15 by zvakil           ###   ########.fr       */
+/*   Updated: 2024/06/10 01:57:16 by zvakil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ void	set_moves(t_stacks *stacks, int i, int *moves, int j)
 			if (index_b + 1 <= stacks->len_b / 2)
 				moves[1] = index_b + 1;
 		else
-				moves[1] = (index_b + 1) - stacks->len_b;
+			moves[1] = (index_b + 1) - stacks->len_b;
 		else if (stacks->a[i] > stacks->b_high || stacks->a[i] < stacks->b_low)
 		{
 			while (stacks->b[j] != stacks->b_high && j < stacks->len_b)
-			j++;
+				j++;
 			if (j <= stacks->len_b / 2)
 				moves[1] = j ;
 			else
@@ -62,22 +62,22 @@ int	ischeaper(int *current, int *cheapest, int t_cheap, int t_cur)
 		|| (cheapest[0] > 0 && cheapest[1] > 0))
 	{
 		if (posit(cheapest[0]) >= posit(cheapest[1]))
-		t_cheap = posit(cheapest[0]);
+			t_cheap = posit(cheapest[0]);
 		else
-		t_cheap = posit(cheapest[1]);
+			t_cheap = posit(cheapest[1]);
 	}
 	else
-	t_cheap = posit(cheapest[0]) + posit(cheapest[1]);
+		t_cheap = posit(cheapest[0]) + posit(cheapest[1]);
 	if ((current[0] < 0 && current[1] < 0)
 		|| (current[0] > 0 && current[1] > 0))
 	{
 		if (posit(current[0]) >= posit(current[1]))
-		t_cur = posit(current[0]);
+			t_cur = posit(current[0]);
 		else
-		t_cur = posit(current[1]);
+			t_cur = posit(current[1]);
 	}
 	else
-	t_cur = posit(current[0]) + posit(current[1]);
+		t_cur = posit(current[0]) + posit(current[1]);
 	if (t_cur < t_cheap)
 		return (1);
 	else
@@ -130,5 +130,4 @@ void	cheapestmove(t_stacks *stacks, int *cheapest)
 			rotate_b(stacks);
 		}
 	}
-	free(cheapest);
 }

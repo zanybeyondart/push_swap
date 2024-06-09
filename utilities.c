@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilities.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvakil <zvakil@student.42abudhabi.ae>      +#+  +:+       +#+        */
+/*   By: zvakil <zvakil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by zvakil            #+#    #+#             */
-/*   Updated: 2024/04/01 09:03:25 by zvakil           ###   ########.fr       */
+/*   Updated: 2024/06/10 01:59:02 by zvakil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	set_high_low(t_stacks *stacks)
 			stacks->b_low = stacks->b[i];
 		i++;
 	}
-}	
+}
 
 void	lowest_on_bot(t_stacks *stacks)
 {
@@ -78,6 +78,7 @@ int	ft_atoi(const char *str)
 	int	b;
 	int	neg;
 
+	neg = 0;
 	b = 0;
 	a = 0;
 	while ((str[a] >= 9 && str[a] <= 13) || str[a] == ' ')
